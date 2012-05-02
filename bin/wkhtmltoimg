@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+executable = case RUBY_PLATFORM
+  when /64.*linux/
+    'wkhtmltoimage-amd64'
+  when /linux/
+    'wkhtmltoimage-i386'
+  when /darwin/
+    'wkhtmltoimage-osx'
+  else
+    raise "Invalid platform. Must be running linux or intel-based Mac OS."
+end
+
+arguments = $*.map { |x| x.include?(' ') ? "'" + x + "'" : x }
+
+executable = File.join(File.dirname(__FILE__), executable)
+r = system(executable + " " + arguments.join(" "))
+
+exit r ? 0 : 1
