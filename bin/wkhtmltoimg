@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 executable = case RUBY_PLATFORM
+  when /x86_64-linux/
+    'wkhtmltoimage-i386'
   when /64.*linux/
     'wkhtmltoimage-amd64'
   when /linux/
